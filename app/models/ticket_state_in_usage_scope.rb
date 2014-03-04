@@ -6,7 +6,7 @@ class TicketStateInUsageScope < TicketState
   def change_ticket_state_to_in_usage_scope
   end
 
-  def store_valid_scan(scan)
+  def consider_storing_valid_scan(scan)
     old = self.scans.pop if (scan.date == self.scans.last.date)
     old.destroy unless old.nil?
     self.scans.push(scan)

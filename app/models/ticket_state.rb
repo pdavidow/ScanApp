@@ -45,7 +45,7 @@ class TicketState < ActiveRecord::Base
   def consider_changing_state_after_valid_scan(scan)
   end
 
-  def store_valid_scan(scan)
+  def consider_storing_valid_scan(scan)
   end
 
   def change_state_to_expire_after_invalid_scan?(scan)

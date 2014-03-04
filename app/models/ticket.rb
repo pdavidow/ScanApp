@@ -70,8 +70,8 @@ class Ticket < ActiveRecord::Base
     self.ticket_state(true) #refresh cache
   end
 
-  def store_valid_scan(scan)
-    self.ticket_state.store_valid_scan(scan)
+  def consider_storing_valid_scan(scan)
+    self.ticket_state.consider_storing_valid_scan(scan)
     self.scans(true) #refresh cache
   end
 
@@ -88,7 +88,7 @@ class Ticket < ActiveRecord::Base
     self.assert_scan_is_chronological(scan)
 
     scan.validate
-    self.store_valid_scan(scan) if scan.valid_scan?
+    self.consider_storing_valid_scan(scan) if scan.valid_scan?
     self.consider_changing_state_after_scan(scan)
     self.save
 

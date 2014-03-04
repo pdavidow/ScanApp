@@ -10,7 +10,7 @@ class TicketStateUnused < TicketState
     self.ticket.enter_usage_scope
   end
 
-  def store_valid_scan(scan)
+  def consider_storing_valid_scan(scan)
     self.scans.push(scan)
   end
 
