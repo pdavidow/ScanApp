@@ -1,14 +1,16 @@
-class LiftTicketScan < ActiveRecord::Base
-  has_one :resort, class_name: "SkiResort"
-  belongs_to :ticket, inverse_of: :valid_last_daily_scans, class_name: "LiftTicket"
+class Scan < ActiveRecord::Base
+  belongs_to :resort
+  belongs_to :ticket
 
   attr_accessor :validator, :date, :valid_unique_scan_dates_prior
 
-  #def initialize(ticket, resort, timestamp)
-    #self.ticket = ticket
-    #self.resort = resort
-    #self.timestamp = timestamp
-  #end
+  def self.new_for_ticket_for_resort_for_timestamp(ticket, resort, timestamp)
+    instance = self.new
+    instance.ticket = ticket
+    instance.resort = resort
+    instance.timestamp = timestamp
+    instance
+  end
 
   def validator
     @validator ||= ScanValidator.new(self)
@@ -46,7 +48,7 @@ class LiftTicketScan < ActiveRecord::Base
     self.validator.satisfy_total_amount_of_consecutive_potential_usage_dates?
   end
 
-  def valid?
+  def valid_scan?
     self.validator.valid?
   end
 

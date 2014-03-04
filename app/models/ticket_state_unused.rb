@@ -1,5 +1,4 @@
 class TicketStateUnused < TicketState
-
   def unused?
     true
   end
@@ -11,8 +10,8 @@ class TicketStateUnused < TicketState
     self.ticket.enter_usage_scope
   end
 
-  def consider_storing_valid_scan(scan)
-    self.valid_last_daily_scans.push(scan)
+  def store_valid_scan(scan)
+    self.scans.push(scan)
   end
 
   def local_to_resort_for_scan_date_on_latest_scan?(scan)

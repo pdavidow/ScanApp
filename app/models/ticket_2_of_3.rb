@@ -1,4 +1,4 @@
-class LiftTicket2Of3 < LiftTicket
+class Ticket2Of3 < Ticket
   def amount_max_promo_usage_dates
     0
   end

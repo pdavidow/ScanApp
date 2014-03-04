@@ -1,4 +1,4 @@
-class NonPromoSkiResort < SkiResort
+class NonPromoResort < Resort
 
   def non_promo?
     true

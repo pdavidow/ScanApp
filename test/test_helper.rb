@@ -12,46 +12,27 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 
   def example_company
-    #resorts.push(PromoSkiResort.new('A', 500))
-    #resorts.push(PromoSkiResort.new('B', 550))
-    #resorts.push(NonPromoSkiResort.new('C', 600))
-    #resorts.push(NonPromoSkiResort.new('D', 650))
-    #resorts.push(NonPromoSkiResort.new('E', 700))
-    #resorts.push(NonPromoSkiResort.new('F', 750))
-    #resorts.push(NonPromoSkiResort.new('G', 800))
-    #SkiResortCompany.new(resorts)
+    Company.destroy_all
+    company = Company.create
 
     resorts = Array.new
-    resort = PromoSkiResort.new
-    resort.name = 'A'
-    resort.scan_wait_seconds = 500
-    resorts.push(resort)
-    resort = PromoSkiResort.new
-    resort.name = 'B'
-    resort.scan_wait_seconds = 550
-    resorts.push(resort)
-    resort = NonPromoSkiResort.new
-    resort.name = 'C'
-    resort.scan_wait_seconds = 600
-    resorts.push(resort)
-    resort = NonPromoSkiResort.new
-    resort.name = 'D'
-    resort.scan_wait_seconds = 650
-    resorts.push(resort)
-    resort = NonPromoSkiResort.new
-    resort.name = 'E'
-    resort.scan_wait_seconds = 700
-    resorts.push(resort)
-    resort = NonPromoSkiResort.new
-    resort.name = 'F'
-    resort.scan_wait_seconds = 750
-    resorts.push(resort)
-    resort = NonPromoSkiResort.new
-    resort.name = 'G'
-    resort.scan_wait_seconds = 800
-    resorts.push(resort)
-    company = SkiResortCompany.new
-    company.resorts = resorts
-    company
+    PromoResort.create_for_name_for_scan_wait_seconds('A', 500)
+    resorts.push(Resort.find_by_name('A'))
+    PromoResort.create_for_name_for_scan_wait_seconds('B', 550)
+    resorts.push(Resort.find_by_name('B'))
+    NonPromoResort.create_for_name_for_scan_wait_seconds('C', 600)
+    resorts.push(Resort.find_by_name('C'))
+    NonPromoResort.create_for_name_for_scan_wait_seconds('D', 650)
+    resorts.push(Resort.find_by_name('D'))
+    NonPromoResort.create_for_name_for_scan_wait_seconds('E', 700)
+    resorts.push(Resort.find_by_name('E'))
+    NonPromoResort.create_for_name_for_scan_wait_seconds('F', 750)
+    resorts.push(Resort.find_by_name('F'))
+    NonPromoResort.create_for_name_for_scan_wait_seconds('G', 800)
+    resorts.push(Resort.find_by_name('G'))
+
+    company.resorts.push(resorts)
+    company.save
+    Company.first
   end
 end

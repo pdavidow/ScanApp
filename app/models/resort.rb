@@ -1,12 +1,20 @@
 require "#{Rails.root}/lib/base_class_extensions/object"
 
-class SkiResort < ActiveRecord::Base
-  belongs_to :company, inverse_of: :resorts, class_name: "SkiResortCompany"
+class Resort < ActiveRecord::Base
+  belongs_to :company
 
-  #def initialize(name, scan_wait_seconds)
-    #self.name = name
-    #self.scan_wait_seconds = scan_wait_seconds
-  #end
+  def self.new_for_name_for_scan_wait_seconds(name, scan_wait_seconds)
+    instance = self.new
+    instance.name = name
+    instance.scan_wait_seconds = scan_wait_seconds
+    instance
+  end
+
+  def self.create_for_name_for_scan_wait_seconds(name, scan_wait_seconds)
+    instance = self.new_for_name_for_scan_wait_seconds(name, scan_wait_seconds)
+    instance.save
+    instance
+  end
 
   def promo?
     false

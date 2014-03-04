@@ -6,18 +6,18 @@ A ski resort company needs a system to handle scanning of lift tickets in all it
 This company owns 7 ski resorts (all within same timezone); 2 of them are 'promo' resorts.
 
 The following rules apply in selling and scanning of lift tickets:
-  Each ticket expires at the end of the current ski season.
-  Each ticket can be used during any given day only in a single resort.
-  Time interval between two scans must be greater than a given minimum time interval specific for each resort.
+# Each ticket expires at the end of the current ski season.
+# Each ticket can be used during any given day only in a single resort.
+# Time interval between two scans must be greater than a given minimum time interval specific for each resort.
 
 
 Five types of lift tickets are available:
 
-'1 day' ticket (valid for any non-promo resort)
-'1 day promo' ticket (valid for any promo resort and non-promo resort)
-'2 out of 3 days' ticket (valid for 2 days for any non-promo resort)
-'3 out of 5 days' ticket (valid for 3 days for any non-promo resort, one of those 3 days can be used in a promo resort)
-'5 out of 7 days' ticket (valid for 5 days for any non-promo resort, two of those 5 days can be used in a promo resort)
+#'1 day' ticket (valid for any non-promo resort)
+#'1 day promo' ticket (valid for any promo resort and non-promo resort)
+#'2 out of 3 days' ticket (valid for 2 days for any non-promo resort)
+#'3 out of 5 days' ticket (valid for 3 days for any non-promo resort, one of those 3 days can be used in a promo resort)
+#'5 out of 7 days' ticket (valid for 5 days for any non-promo resort, two of those 5 days can be used in a promo resort)
 
 Each 'X out of Y days' ticket will expire Y days after the ticket was used for the first time (where X < Y).
 E.g., A '2 out of 3' ticket can be used any 2 days within 3 days from the first use of the ticket.

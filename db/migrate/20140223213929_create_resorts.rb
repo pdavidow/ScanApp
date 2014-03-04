@@ -1,6 +1,6 @@
-class CreateSkiResorts < ActiveRecord::Migration
+class CreateResorts < ActiveRecord::Migration
   def change
-    create_table :ski_resorts do |t|
+    create_table :resorts do |t|
       t.integer :company_id
 
       t.string :name

@@ -1,6 +1,6 @@
-class CreateLiftTicketScans < ActiveRecord::Migration
+class CreateScans < ActiveRecord::Migration
   def change
-    create_table :lift_ticket_scans do |t|
+    create_table :scans do |t|
       t.integer :resort_id
       t.integer :ticket_id
 

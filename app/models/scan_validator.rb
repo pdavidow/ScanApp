@@ -6,27 +6,27 @@ class ScanValidator < Object
   end
 
   def current_for_season?
-    @is_current_for_season ||= self.state.current_for_season_on_latest_scan?(self.scan)
+    @is_current_for_season ||= self.ticket_state.current_for_season_on_latest_scan?(self.scan)
   end
 
   def local_to_resort_for_scan_date?
-    @is_local_to_resort_for_scan_date ||= self.state.local_to_resort_for_scan_date_on_latest_scan?(self.scan)
+    @is_local_to_resort_for_scan_date ||= self.ticket_state.local_to_resort_for_scan_date_on_latest_scan?(self.scan)
   end
 
   def satisfy_amount_max_usage_dates?
-    @is_satisfy_amount_max_usage_dates ||= self.state.satisfy_amount_max_usage_dates_on_latest_scan?(self.scan)
+    @is_satisfy_amount_max_usage_dates ||= self.ticket_state.satisfy_amount_max_usage_dates_on_latest_scan?(self.scan)
   end
 
   def satisfy_resort_type?
-    @is_satisfy_resort_type ||= self.state.satisfy_resort_type_on_latest_scan?(self.scan)
+    @is_satisfy_resort_type ||= self.ticket_state.satisfy_resort_type_on_latest_scan?(self.scan)
   end
 
   def satisfy_scan_wait_duration?
-    @is_satisfy_scan_wait_duration ||= self.state.satisfy_scan_wait_duration_on_latest_scan?(self.scan)
+    @is_satisfy_scan_wait_duration ||= self.ticket_state.satisfy_scan_wait_duration_on_latest_scan?(self.scan)
   end
 
   def satisfy_total_amount_of_consecutive_potential_usage_dates?
-    @is_satisfy_total_amount_of_consecutive_potential_usage_dates ||= self.state.satisfy_total_amount_of_consecutive_potential_usage_dates_on_latest_scan?(self.scan)
+    @is_satisfy_total_amount_of_consecutive_potential_usage_dates ||= self.ticket_state.satisfy_total_amount_of_consecutive_potential_usage_dates_on_latest_scan?(self.scan)
   end
 
   def valid?
@@ -43,8 +43,8 @@ class ScanValidator < Object
     true
   end
 
-  def state
-    self.ticket.state
+  def ticket_state
+    self.ticket.ticket_state
   end
 
   def ticket

@@ -5,45 +5,64 @@ class ValidForResortTypeAndFrequency__5_of_7__Test < ActiveSupport::TestCase
     company = self.example_company
     original_time  = Time.now.utc
     date = original_time.to_date
-    #current_season = SkiSeason.new(date.advance(days:-45), date.advance(days:+45))
-    current_season = SkiSeason.new
-    current_season.start_date = date.advance(days:-45)
-    current_season.end_date = date.advance(days:+45)
+    Season.create_for_start_date_for_end_date(date.advance(days:-45), date.advance(days:+45))
+    current_season = Season.first
+    company.season = current_season
+    company.save
+    company = Company.first
     promo_resort_1 = company.promo_resorts[0]
     promo_resort_2 = company.promo_resorts[1]
     non_promo_resort_1 = company.non_promo_resorts[0]
     non_promo_resort_2 = company.non_promo_resorts[1]
-    ticket_A = company.lift_ticket_5_of_7_for_ski_season(current_season)
-    ticket_B = company.lift_ticket_5_of_7_for_ski_season(current_season)
-    ticket_C = company.lift_ticket_5_of_7_for_ski_season(current_season)
-    ticket_D = company.lift_ticket_5_of_7_for_ski_season(current_season)
-    ticket_E = company.lift_ticket_5_of_7_for_ski_season(current_season)
-    ticket_F = company.lift_ticket_5_of_7_for_ski_season(current_season)
+    ticket_A = company.ticket_5_of_7
+    ticket_A.code = 'ticket_A'
+    ticket_A.save
+    ticket_B = company.ticket_5_of_7
+    ticket_B.code = 'ticket_B'
+    ticket_B.save
+    ticket_C = company.ticket_5_of_7
+    ticket_C.code = 'ticket_C'
+    ticket_C.save
+    ticket_D = company.ticket_5_of_7
+    ticket_D.code = 'ticket_D'
+    ticket_D.save
+    ticket_E = company.ticket_5_of_7
+    ticket_E.code = 'ticket_E'
+    ticket_E.save
+    ticket_F = company.ticket_5_of_7
+    ticket_F.code = 'ticket_F'
+    ticket_F.save
 
     #=================================================== DAY 1
     time = original_time
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_C = Ticket.find_by_code('ticket_C')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_C, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_D = Ticket.find_by_code('ticket_D')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_D, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_E = Ticket.find_by_code('ticket_E')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_E, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_F = Ticket.find_by_code('ticket_F')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_F, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
@@ -51,34 +70,42 @@ class ValidForResortTypeAndFrequency__5_of_7__Test < ActiveSupport::TestCase
     time = time.to_date.advance(days:+1).to_time.utc
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
@@ -86,14 +113,17 @@ class ValidForResortTypeAndFrequency__5_of_7__Test < ActiveSupport::TestCase
     time = time.to_date.advance(days:+1).to_time.utc
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = promo_resort_2.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
@@ -101,14 +131,17 @@ class ValidForResortTypeAndFrequency__5_of_7__Test < ActiveSupport::TestCase
     time = time.to_date.advance(days:+1).to_time.utc
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = promo_resort_2.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
@@ -116,22 +149,27 @@ class ValidForResortTypeAndFrequency__5_of_7__Test < ActiveSupport::TestCase
     time = time.to_date.advance(days:+1).to_time.utc
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = promo_resort_2.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_C = Ticket.find_by_code('ticket_C')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_C, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
@@ -139,34 +177,42 @@ class ValidForResortTypeAndFrequency__5_of_7__Test < ActiveSupport::TestCase
     time = time.to_date.advance(days:+1).to_time.utc
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = promo_resort_2.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_C = Ticket.find_by_code('ticket_C')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_C, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_D = Ticket.find_by_code('ticket_D')
     scan = promo_resort_2.scan_lift_ticket_at_timestamp(ticket_D, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
@@ -174,38 +220,47 @@ class ValidForResortTypeAndFrequency__5_of_7__Test < ActiveSupport::TestCase
     time = time.to_date.advance(days:+1).to_time.utc
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = promo_resort_2.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_C = Ticket.find_by_code('ticket_C')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_C, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_D = Ticket.find_by_code('ticket_D')
     scan = promo_resort_2.scan_lift_ticket_at_timestamp(ticket_D, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_E = Ticket.find_by_code('ticket_E')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_E, time)
     self.assert(scan.valid_for_resort_type_and_frequency?)
 
@@ -213,98 +268,122 @@ class ValidForResortTypeAndFrequency__5_of_7__Test < ActiveSupport::TestCase
     time = time.to_date.advance(days:+1).to_time.utc
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = promo_resort_2.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = promo_resort_2.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_C = Ticket.find_by_code('ticket_C')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_C, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_C = Ticket.find_by_code('ticket_C')
     scan = promo_resort_2.scan_lift_ticket_at_timestamp(ticket_C, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_C = Ticket.find_by_code('ticket_C')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_C, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_C = Ticket.find_by_code('ticket_C')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_C, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_D = Ticket.find_by_code('ticket_D')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_D, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_D = Ticket.find_by_code('ticket_D')
     scan = promo_resort_2.scan_lift_ticket_at_timestamp(ticket_D, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_D = Ticket.find_by_code('ticket_D')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_D, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_D = Ticket.find_by_code('ticket_D')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_D, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_E = Ticket.find_by_code('ticket_E')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_E, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_E = Ticket.find_by_code('ticket_E')
     scan = promo_resort_2.scan_lift_ticket_at_timestamp(ticket_E, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_E = Ticket.find_by_code('ticket_E')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_E, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_E = Ticket.find_by_code('ticket_E')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_E, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_F = Ticket.find_by_code('ticket_F')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_F, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_F = Ticket.find_by_code('ticket_F')
     scan = promo_resort_2.scan_lift_ticket_at_timestamp(ticket_F, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_F = Ticket.find_by_code('ticket_F')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_F, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_F = Ticket.find_by_code('ticket_F')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_F, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
@@ -312,98 +391,122 @@ class ValidForResortTypeAndFrequency__5_of_7__Test < ActiveSupport::TestCase
     time = time.to_date.advance(days:+1).to_time.utc
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = promo_resort_2.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_A = Ticket.find_by_code('ticket_A')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_A, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = promo_resort_2.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_B = Ticket.find_by_code('ticket_B')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_B, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_C = Ticket.find_by_code('ticket_C')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_C, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_C = Ticket.find_by_code('ticket_C')
     scan = promo_resort_2.scan_lift_ticket_at_timestamp(ticket_C, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_C = Ticket.find_by_code('ticket_C')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_C, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_C = Ticket.find_by_code('ticket_C')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_C, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_D = Ticket.find_by_code('ticket_D')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_D, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_D = Ticket.find_by_code('ticket_D')
     scan = promo_resort_2.scan_lift_ticket_at_timestamp(ticket_D, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_D = Ticket.find_by_code('ticket_D')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_D, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_D = Ticket.find_by_code('ticket_D')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_D, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_E = Ticket.find_by_code('ticket_E')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_E, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_E = Ticket.find_by_code('ticket_E')
     scan = promo_resort_2.scan_lift_ticket_at_timestamp(ticket_E, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_E = Ticket.find_by_code('ticket_E')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_E, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_E = Ticket.find_by_code('ticket_E')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_E, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_F = Ticket.find_by_code('ticket_F')
     scan = promo_resort_1.scan_lift_ticket_at_timestamp(ticket_F, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_F = Ticket.find_by_code('ticket_F')
     scan = promo_resort_2.scan_lift_ticket_at_timestamp(ticket_F, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_F = Ticket.find_by_code('ticket_F')
     scan = non_promo_resort_1.scan_lift_ticket_at_timestamp(ticket_F, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
 
     time = time + 1000
+    ticket_F = Ticket.find_by_code('ticket_F')
     scan = non_promo_resort_2.scan_lift_ticket_at_timestamp(ticket_F, time)
     self.assert(!scan.valid_for_resort_type_and_frequency?)
   end

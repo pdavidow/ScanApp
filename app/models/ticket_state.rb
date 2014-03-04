@@ -2,11 +2,7 @@ require "#{Rails.root}/lib/base_class_extensions/object"
 
 class TicketState < ActiveRecord::Base
   include LiftTicketExceptions
-  belongs_to :ticket, inverse_of: :state, class_name: "LiftTicket"
-
-  #def initialize(ticket)
-    #self.ticket = ticket
-  #end
+  belongs_to :ticket
 
   def expired?
     false
@@ -22,22 +18,16 @@ class TicketState < ActiveRecord::Base
 
   def assert_scan_is_chronological(scan)
     #Since only latest valid scans are stored, that is all we can test against
-    prior_scan = self.valid_last_daily_scans.last
+    prior_scan = self.scans.last
     raise LiftTicketNonChronologicalScanError if scan.timestamp <= prior_scan.timestamp
   end
 
   def change_ticket_state_to_expired
-    #self.ticket.state = TicketStateExpired.new(self.ticket)
-    state = TicketStateExpired.new
-    state.ticket = self.ticket
-    self.ticket.state = state
+    self.ticket.ticket_state = TicketStateExpired.new
   end
 
   def change_ticket_state_to_in_usage_scope
-    #self.ticket.state = TicketStateInUsageScope.new(self.ticket)
-    state = TicketStateInUsageScope.new
-    state.ticket = self.ticket
-    self.ticket.state = state
+    self.ticket.ticket_state = TicketStateInUsageScope.new
   end
 
   def consider_changing_state_after_invalid_scan(scan)
@@ -45,7 +35,7 @@ class TicketState < ActiveRecord::Base
   end
 
   def consider_changing_state_after_scan(scan)
-    if scan.valid? then
+    if scan.valid_scan? then
       self.consider_changing_state_after_valid_scan(scan)
     else
       self.consider_changing_state_after_invalid_scan(scan)
@@ -55,7 +45,7 @@ class TicketState < ActiveRecord::Base
   def consider_changing_state_after_valid_scan(scan)
   end
 
-  def consider_storing_valid_scan(scan)
+  def store_valid_scan(scan)
   end
 
   def change_state_to_expire_after_invalid_scan?(scan)
@@ -86,7 +76,7 @@ class TicketState < ActiveRecord::Base
     self.subclass_implementation
   end
 
-  def valid_last_daily_scans
-    self.ticket.valid_last_daily_scans
+  def scans
+    self.ticket.scans
   end
 end

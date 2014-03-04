@@ -1,13 +1,13 @@
-class LiftTicket3Of5 < LiftTicket
+class Ticket5Of7 < Ticket
   def amount_max_promo_usage_dates
-    1
+    2
   end
 
   def amount_max_usage_dates
-    3
+    5
   end
 
   def total_amount_of_consecutive_potential_usage_dates
-    5
+    7
   end
 end
