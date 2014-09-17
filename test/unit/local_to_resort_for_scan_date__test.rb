@@ -52,11 +52,7 @@ class LocalToResortForScanDateTest < ActiveSupport::TestCase
     company = self.example_company
     now  = Time.now.utc
     date = now.to_date
-    #current_season = Season.new(date.advance(days:-45), date.advance(days:+45))
-    current_season = Season.new
-    current_season.start_date = date.advance(days:-45)
-    current_season.end_date = date.advance(days:+45)
-    current_season.save
+    Season.create_for_start_date_for_end_date(date.advance(days:-45), date.advance(days:+45))
     current_season = Season.first
     company.season = current_season
     company.save

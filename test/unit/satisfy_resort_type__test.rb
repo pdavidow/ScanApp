@@ -93,6 +93,7 @@ class SatisfyResortTypeTest < ActiveSupport::TestCase
     scan = non_promo_resort.scan_lift_ticket_at_timestamp(ticket_2_of_3__A, time)
     self.assert(scan.satisfy_resort_type?)
 
+    ticket_2_of_3__B = Ticket.find_by_code('ticket_2_of_3__B')
     scan = promo_resort.scan_lift_ticket_at_timestamp(ticket_2_of_3__B, time)
     self.assert(!scan.satisfy_resort_type?)
 
