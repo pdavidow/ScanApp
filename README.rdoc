@@ -1,4 +1,4 @@
-This app models the following problem, and is currently backend-only.
+This app models the following problem using the State pattern, and is currently backend-only.
 =====================================================================
 
 A ski resort company needs a system to handle scanning of lift tickets in all its resorts.
